@@ -12,9 +12,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+      - uses: android-actions/setup-android@v3
+      - run: mkdir -p android/app/src/main/assets/public && touch android/app/src/main/assets/public/index.html
       - run: npm install
       - run: npx cap sync android
-      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug --continue
       - uses: actions/upload-artifact@v4
         with:
           name: app-debug
